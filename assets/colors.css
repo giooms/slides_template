@@ -1,0 +1,23 @@
+/* Color Palette Configuration */
+:root {
+    /* Primary Colors */
+    --color-primary: #00214E;
+    --color-primary-dark: #001219;
+    --color-primary-light: #CEDBEA;
+    
+    /* Accent Colors */
+    --color-accent: #d11a01;
+    --color-highlight: #d11a01;
+    --color-warning: #D62828;
+    
+    /* Neutral Colors */
+    --color-text: #001219;
+    --color-background: #FFFFFF;
+    --color-grey: #E5E5E5;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    
+    /* UI Colors */
+    --color-link: #00214E;
+    --color-link-hover: #001219;
+}

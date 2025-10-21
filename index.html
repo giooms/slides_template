@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>talk-template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="./assets/colors.css">
+    <link rel="stylesheet" href="./assets/katex.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/grid.css">
+  </head>
+  <body>
+    <textarea id="source"></textarea>
+    <script src="./assets/remark-latest.min.js"></script>
+    <script src="./assets/auto-render.min.js"></script>
+    <script src="./assets/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/citation-js@0.7.11/build/citation.min.js"></script>
+
+    <script type="text/javascript">
+        var options = {sourceUrl: "talk.md",
+                       highlightStyle: "tomorrow",
+                       ratio: "16:9",
+                       slideNumberFormat: "%current% / %total%"};
+        var renderMath = function() {
+            renderMathInElement(document.body, {delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false},
+            ]});
+        }
+        
+        var slideshow = remark.create(options, renderMath);
+        
+        // Update progress ribbon on slide change
+        slideshow.on('afterShowSlide', function (slide) {
+            var slideNumberElement = document.querySelector('.remark-visible .remark-slide-number');
+            
+            if (slideNumberElement) {
+                var slideNumberText = slideNumberElement.textContent;
+                var numbers = slideNumberText.split(' / ');
+                
+                if (numbers.length === 2) {
+                    var currentSlide = parseInt(numbers[0]);
+                    var totalSlides = parseInt(numbers[1]);
+                    var progress = (currentSlide / totalSlides) * 100;
+                    
+                    var slideContent = document.querySelector('.remark-visible .remark-slide-content');
+                    if (slideContent) {
+                        slideContent.style.setProperty('--slide-progress', progress + '%');
+                    }
+                }
+            }
+        });
+
+        // Load and process citations from BibTeX file
+        fetch('references.bib')
+            .then(response => response.text())
+            .then(bibtext => {
+                const citations = new Cite(bibtext);
+                
+                // Replace citation keys with formatted citations
+                document.querySelectorAll('.cite').forEach(el => {
+                    const key = el.dataset.key;
+                    try {
+                        const cite = citations.format('bibliography', {
+                            format: 'text',
+                            template: 'apa',
+                            entry: key
+                        });
+                        el.innerHTML = cite;
+                    } catch(e) {
+                        console.error('Citation not found:', key);
+                    }
+                });
+            });
+    </script>
+  </body>
+</html>
