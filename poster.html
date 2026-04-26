@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scientific Poster</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/colors.css">
+    <link rel="stylesheet" href="./assets/katex.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/grid.css">
+    <link rel="stylesheet" href="./assets/poster.css">
+  </head>
+  <body class="poster-mode">
+    <div id="poster-content"></div>
+
+    <script src="./assets/katex.min.js"></script>
+    <script src="./assets/auto-render.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/lib/marked.umd.js"></script>
+
+    <script type="text/javascript">
+      // Simple markdown to HTML converter for posters
+      async function loadPoster() {
+        try {
+          const response = await fetch('poster.md');
+          const markdown = await response.text();
+          
+          // Configure marked options
+          marked.setOptions({
+            breaks: true,
+            gfm: true,
+          });
+          
+          // Parse markdown to HTML
+          const html = await marked.parse(markdown);
+          document.getElementById('poster-content').innerHTML = html;
+          
+          // Render KaTeX math
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "\\(", right: "\\)", display: false},
+            ],
+            throwOnError: false
+          });
+        } catch (error) {
+          console.error('Error loading poster:', error);
+          document.getElementById('poster-content').innerHTML = '<p>Error loading poster content: ' + error.message + '</p>';
+        }
+      }
+      
+      // Load poster when page is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadPoster);
+      } else {
+        loadPoster();
+      }
+    </script>
+  </body>
+</html>

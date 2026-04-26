@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" width="220" height="72" role="img" aria-label="UCLouvain">
+  <!-- wordmark -->
+  <text y="40" font-family="'Helvetica Neue', Arial, sans-serif" font-size="38">
+    <tspan font-weight="900" fill="#002d62">UC</tspan><tspan font-weight="300" fill="#002d62">Louvain</tspan>
+  </text>
+  <!-- gold rule -->
+  <rect x="0" y="47" width="220" height="2" fill="#9b7b2c" rx="1"/>
+  <!-- tagline -->
+  <text x="1" y="63" font-family="'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#4a5568" letter-spacing="0.2">Université catholique de Louvain</text>
+</svg>

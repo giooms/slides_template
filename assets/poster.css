@@ -1,0 +1,640 @@
+/* ===================================================================
+   Scientific Poster  —  UCLouvain / LIDAM theme
+   Best-practice modern academic poster  ·  Print-optimised  ·  A0/A1
+   =================================================================== */
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+:root {
+    /* UCLouvain brand */
+    --navy:         #002d62;
+    --navy-dark:    #001d42;
+    --blue:         #1a5fa8;   /* mid blue — links, accents on white */
+    --accent:       #2f84c0;   /* lighter blue — accents on white bg */
+
+    /* Text */
+    --ink:          #1a202c;
+    --ink-soft:     #5a6a7e;
+    --ink-muted:    #8a9ab0;
+
+    /* Surfaces */
+    --bg-page:      #ffffff;
+    --bg-card:      #f4f7fb;
+    --bg-ice:       #e6f0fa;   /* very light blue tint */
+    --bg-band:      #ebf0f7;
+    --bg-body:      #cdd5e0;
+    --rule:         #cdd8ea;
+
+    /* Elevation — flatter for minimalism */
+    --shadow-card:  0 1px 4px rgba(0,45,98,.09);
+    --shadow-hdr:   0 3px 18px rgba(0,0,0,.16);
+}
+
+/* ── Print @page (A0 portrait, zero margins) ────────────────────── */
+@page {
+    size: A0 portrait;
+    margin: 0;
+}
+
+@media print {
+    body.poster-mode {
+        padding: 0;
+        background: white;
+    }
+    #poster-content {
+        box-shadow: none;
+        max-width: 100%;
+        min-height: 100vh;
+    }
+    .poster-footer { page-break-inside: avoid; }
+}
+
+/* ── Base reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body.poster-mode {
+    margin: 0;
+    padding: 28px;
+    background: var(--bg-body);
+    font-family: 'Lato', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.70;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+#poster-content {
+    max-width: 1360px;
+    margin: 0 auto;
+    background: var(--bg-page);
+    box-shadow: var(--shadow-hdr);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ===================================================================
+   HEADER
+   Two zones: navy left (title + authors)  |  white right (logos)
+   =================================================================== */
+
+.poster-header {
+    display: grid;
+    grid-template-columns: 1fr 230px;
+    background: var(--navy);
+    color: #fff;
+    flex-shrink: 0;
+    border-top: 4px solid var(--accent);
+    box-shadow: var(--shadow-hdr);
+}
+
+/* ─── Left zone: title + meta ─── */
+.poster-header-left {
+    padding: 36px 42px 32px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+    border-right: 1px solid rgba(255,255,255,.12);
+}
+
+/* High-specificity override — prevents section-heading h1 rule from
+   applying to the poster title (specificity 121 > 101). */
+#poster-content .poster-header .poster-title-block h1 {
+    background: none;
+    margin: 0 0 10px;
+    padding: 0;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -.5px;
+    color: #fff;
+    text-transform: none;
+    border-bottom: none;
+}
+
+.poster-subtitle {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,.88);
+    line-height: 1.4;
+}
+
+.poster-meta-block .poster-authors {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 8px;
+}
+
+.poster-meta-block .poster-affiliations {
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: rgba(255,255,255,.78);
+}
+
+.poster-meta-block sup,
+.poster-authors sup {
+    font-size: 10px;
+    vertical-align: super;
+}
+
+/* ─── Right zone: institution logos on white panel ─── */
+.poster-logos-block {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    padding: 30px 22px;
+    border-left: 1px solid rgba(0,0,0,.1);
+}
+
+.poster-logo {
+    max-height: 72px;
+    max-width: 170px;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+/* ===================================================================
+   KEY MESSAGE BANNER
+   The single most important finding — prominent so visitors grasp
+   the contribution at a glance (Morrison "better poster" principle).
+   =================================================================== */
+
+.poster-key-message {
+    background: var(--bg-ice);
+    border-left: 6px solid var(--navy);
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 52px 20px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.poster-key-message-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.poster-key-message-text { flex: 1; }
+
+.poster-key-message-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    margin-bottom: 5px;
+}
+
+.poster-key-message-text p {
+    margin: 0 !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    color: var(--navy) !important;
+    line-height: 1.42 !important;
+    text-align: left !important;
+    hyphens: none !important;
+}
+/* ===================================================================
+   SECTION HEADINGS  —  full-width navy band
+   =================================================================== */
+
+#poster-content h1 {
+    background: var(--navy);
+    color: #fff;
+    margin: 22px 0 0;
+    padding: 10px 52px;
+    font-size: 13.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    border-bottom: none;
+}
+
+/* No extra top gap before the very first section */
+#poster-content > h1:first-of-type,
+.poster-key-message + h1 {
+    margin-top: 0;
+}
+
+/* ===================================================================
+   HR  (--- in Markdown) — invisible; spacing provided by h1 margins
+   =================================================================== */
+
+#poster-content > hr {
+    display: none;
+}
+
+/* ===================================================================
+   SUB-HEADINGS inside body sections
+   =================================================================== */
+
+#poster-content h2 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 14px 0 5px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rule);
+}
+
+#poster-content h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 11px 0 4px;
+}
+
+#poster-content h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 8px 0 3px;
+}
+
+/* ===================================================================
+   MULTI-COLUMN GRID
+   .poster-columns           → 3 columns (default)
+   .poster-columns-2         → 2 columns
+   .poster-columns-4         → 4 columns
+   =================================================================== */
+
+.poster-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 16px 42px 20px;
+}
+
+.poster-columns.poster-columns-2 { grid-template-columns: repeat(2, 1fr); }
+.poster-columns.poster-columns-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+    .poster-columns,
+    .poster-columns.poster-columns-4 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Column card ── */
+.poster-column {
+    background: var(--bg-page);
+    border-radius: 6px;
+    border-top: 4px solid var(--navy);
+    box-shadow: var(--shadow-card);
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Variants */
+.poster-column.accent  { border-top-color: var(--accent); }
+.poster-column.tinted  { background: var(--bg-card); box-shadow: none;
+                          border: 1px solid var(--rule); border-top: 4px solid var(--navy); }
+
+.poster-column h2, .poster-column h3 { margin-top: 0; }
+.poster-column p  { margin: 6px 0; }
+.poster-column ul,
+.poster-column ol { margin: 6px 0; padding-left: 18px; }
+.poster-column li { margin: 3px 0; }
+
+/* ===================================================================
+   KPI BLOCKS  — for key numbers / metrics
+   Usage:
+   <div class="poster-kpi-grid">
+     <div class="poster-kpi">
+       <span class="poster-kpi-value">91 %</span>
+       <span class="poster-kpi-label">Accuracy</span>
+     </div>
+   </div>
+   =================================================================== */
+
+.poster-kpi {
+    background: var(--navy);
+    border-radius: 6px;
+    padding: 16px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 88px;
+}
+
+.poster-kpi-value {
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 1;
+    color: #ffffff;
+}
+
+.poster-kpi-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,.78);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.poster-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+/* When the kpi-grid sits directly inside #poster-content (not inside a card) */
+#poster-content > .poster-kpi-grid {
+    padding: 16px 42px 6px;
+    margin: 0;
+}
+
+/* ===================================================================
+   CONCLUSION BLOCK
+   =================================================================== */
+
+.poster-conclusion {
+    margin: 0 42px 20px;
+    padding: 20px 26px;
+    background: var(--bg-band);
+    border-left: 6px solid var(--navy);
+    border-radius: 0 6px 6px 0;
+    box-shadow: var(--shadow-card);
+}
+
+.poster-conclusion h2 {
+    margin-top: 0;
+    border-bottom-color: transparent;
+}
+
+/* ===================================================================
+   REFERENCES
+   =================================================================== */
+
+.poster-references {
+    padding: 14px 52px 0;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+}
+
+.poster-references h2 {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rule);
+}
+
+.poster-references ol,
+.poster-references ul {
+    margin: 0;
+    padding-left: 16px;
+    columns: 2;
+    column-gap: 36px;
+}
+
+.poster-references li {
+    margin: 3px 0;
+    break-inside: avoid;
+}
+
+/* ===================================================================
+   FOOTER  — navy strip mirroring the header
+   =================================================================== */
+
+.poster-footer {
+    background: var(--navy-dark);
+    color: rgba(255,255,255,.72);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 11px 52px;
+    margin-top: 24px;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,.15);
+    flex-shrink: 0;
+}
+
+.poster-footer a {
+    color: rgba(255,255,255,.88);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+}
+
+.poster-footer a:hover { color: #ffffff; }
+
+.poster-footer-center {
+    text-align: center;
+    flex: 1;
+    font-style: italic;
+    font-size: 11.5px;
+    line-height: 1.55;
+}
+
+/* Placeholder QR code box */
+.poster-qr {
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border: 2px solid rgba(255,255,255,.25);
+    border-radius: 4px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8.5px;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 3px;
+    line-height: 1.3;
+}
+
+/* ===================================================================
+   BODY TEXT
+   =================================================================== */
+
+#poster-content p {
+    margin: 7px 0;
+    color: var(--ink);
+    text-align: justify;
+    hyphens: auto;
+}
+
+#poster-content ul,
+#poster-content ol {
+    margin: 7px 0;
+    padding-left: 20px;
+    color: var(--ink);
+}
+
+#poster-content li { margin: 3px 0; }
+
+strong { font-weight: 700; color: var(--ink); }
+em     { font-style: italic; }
+
+/* ===================================================================
+   TABLES
+   =================================================================== */
+
+#poster-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 12.5px;
+}
+
+#poster-content table thead {
+    background-color: var(--navy);
+    color: white;
+}
+
+#poster-content table th {
+    padding: 7px 10px;
+    font-weight: 700;
+    text-align: left;
+}
+
+#poster-content table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+}
+
+#poster-content table tbody tr:nth-child(even) {
+    background-color: var(--bg-card);
+}
+
+/* ===================================================================
+   FIGURES & IMAGES
+   =================================================================== */
+
+#poster-content figure        { margin: 12px 0; text-align: center; }
+
+#poster-content figcaption,
+#poster-content p > em:only-child {
+    display: block;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1.45;
+}
+
+#poster-content img:not(.poster-logo) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+}
+
+/* ===================================================================
+   CODE
+   =================================================================== */
+
+#poster-content code {
+    font-family: 'Courier New', 'Menlo', monospace;
+    font-size: 11.5px;
+    background: #edf1f7;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: var(--ink);
+}
+
+#poster-content pre {
+    background: #1e2533;
+    color: #cdd3de;
+    padding: 14px 18px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+#poster-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+/* ===================================================================
+   LINKS
+   =================================================================== */
+
+#poster-content a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid #a0badc;
+}
+
+#poster-content a:hover {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+}
+
+/* ===================================================================
+   MATH  (KaTeX)
+   =================================================================== */
+
+.katex-display { margin: 12px 0; overflow-x: auto; }
+.katex         { font-size: .96em; }
+
+/* ===================================================================
+   CALLOUTS  (optional)
+   =================================================================== */
+
+.callout {
+    border-left: 4px solid var(--rule);
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background: var(--bg-card);
+}
+
+.callout-note    { border-left-color: var(--blue);  background: #eff5ff; }
+.callout-tip     { border-left-color: #16a34a;      background: #f0fdf4; }
+.callout-warning { border-left-color: #d97706;      background: #fffaeb; }
+
+.callout-title {
+    font-weight: 800;
+    font-size: 12.5px;
+    margin-bottom: 5px;
+    color: var(--ink);
+}
+
+/* ===================================================================
+   UTILITIES
+   =================================================================== */
+
+.text-center { text-align: center !important; }
+.text-right  { text-align: right  !important; }
+.small       { font-size: 11px   !important; }
+.large       { font-size: 17px   !important; }
+.bold        { font-weight: 700  !important; }
+.italic      { font-style: italic !important; }
+.muted       { color: var(--ink-soft) !important; }
+

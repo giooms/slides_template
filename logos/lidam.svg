@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" width="220" height="72" role="img" aria-label="LIDAM">
+  <!-- wordmark — letter-spacing gives the small-caps feel of the LIDAM brand -->
+  <text y="40" font-family="'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="800" fill="#002d62" letter-spacing="3">LIDAM</text>
+  <!-- gold rule -->
+  <rect x="0" y="47" width="220" height="2" fill="#9b7b2c" rx="1"/>
+  <!-- tagline — two lines to keep it readable at small size -->
+  <text x="1" y="59" font-family="'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#4a5568">Louvain Institute of Data Analysis</text>
+  <text x="1" y="71" font-family="'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#4a5568">and Modelling — UCLouvain</text>
+</svg>
