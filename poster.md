@@ -1,85 +1,83 @@
 <div class="poster-header">
-  <div class="poster-header-left">
-    <div class="poster-title-block">
-      <h1>Your Research Title Goes Here</h1>
-      <p class="poster-subtitle">Conference Name &amp; Year &mdash; Location</p>
-    </div>
-    <div class="poster-meta-block">
-      <p class="poster-authors">
-        Your Name<sup>1,*</sup>&ensp;Co-Author<sup>1</sup>&ensp;Collaborator<sup>2</sup>
-      </p>
-      <div class="poster-affiliations">
-        <div><sup>1</sup> Louvain Institute of Data Analysis and Modelling (LIDAM), UCLouvain, Belgium</div>
-        <div><sup>2</sup> Optional second institution, Country</div>
-        <div><sup>*</sup> firstname.lastname@uclouvain.be</div>
+  <div class="poster-title-block">
+    <h1>Your Research Title Goes Here</h1>
+    <!-- <p class="poster-subtitle">Conference Name &amp; Year &mdash; Location</p> -->
+  </div>
+  <div class="poster-meta-container">
+    <div class="poster-authors-container">
+      <div class="poster-profile-pic"></div>
+      <div class="poster-authors-block">
+        <div class="poster-authors">Your Name<sup>1,*</sup>&ensp;Co-Author<sup>1</sup>&ensp;Collaborator<sup>2</sup></div>
+        <!-- <div class="poster-affiliations">
+          <div><sup>1</sup> Louvain Institute of Data Analysis and Modelling (LIDAM), UCLouvain, Belgium</div>
+          <div><sup>2</sup> Optional second institution, Country</div>
+          <div><sup>*</sup> firstname.lastname@uclouvain.be</div>
+        </div> -->
       </div>
     </div>
-  </div>
-  <div class="poster-logos-block">
-    <img src="assets/logo_uclouvain.png" alt="UCLouvain" class="poster-logo">
-    <img src="assets/logo_lidam.png" alt="LIDAM" class="poster-logo">
-  </div>
-</div>
-
-<div class="poster-key-message">
-  <div class="poster-key-message-icon">★</div>
-  <div class="poster-key-message-text">
-    <span class="poster-key-message-label">Key Finding</span>
-    <p>Replace this with your single most important result — the one sentence a passerby should take away from your poster.</p>
+    <div class="poster-logos-container">
+      <img src="assets/logo_uclouvain.png" alt="UCLouvain" class="poster-logo">
+      <img src="assets/logo_lidam.png" alt="LIDAM" class="poster-logo">
+      <div class="poster-qr-header"></div>
+    </div>
   </div>
 </div>
 
-# Introduction
+<div class="col">
 
-<div class="poster-columns">
+<section>
 
-<div class="poster-column">
+## Abstract
 
-### Background
+**Background:** Present the motivation for your work. Why does this problem matter? What gap does it address?
 
-Present the motivation for your work. Why does this problem matter? What gap in knowledge does it address?
+**Methodology:** Brief overview of your approach and what makes it novel.
 
-- Contextual point one
-- Contextual point two
-- Contextual point three
+</section>
 
-</div>
+<section>
 
-<div class="poster-column">
+## System Topology
 
-### Problem Statement
+The problem graph $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ defines dispatch bounds under economic constraints.
 
-Describe the specific challenge you tackle. Make the problem concrete — one clear paragraph works best here.
+<div class="poster-figure-box" style="height: 280px;">Network / Data Figure</div>
 
-**Research gap:** State clearly what was unknown or unsolved before your contribution.
+<div class="caption">Fig 1: Description of the figure and what it shows.</div>
 
-</div>
+</section>
 
-<div class="poster-column">
+<section>
 
-### Objectives
+## Constraints
 
-1. First research objective
-2. Second research objective
-3. Third research objective
+- Thermal line limits $\mathcal{F}_{\max}$
+- Generator ramping constraints
+- Real-time nodal balance
 
-**Key question:** What is the central question your poster answers?
+</section>
 
 </div>
 
+<div class="col">
+
+<section>
+
+## Optimization Model
+
+<div class="math-block">
+
+$$\min_{x \in \mathcal{X}} \mathbb{E}_{\xi} \left[ c^\top x + \mathcal{Q}(x, \xi) \right]$$
+
 </div>
 
----
+Subject to two-stage recourse:
 
-# Methodology
+<div class="math-block">
 
-<div class="poster-columns">
+$$\mathcal{Q}(x, \xi) = \min_{y} \; q^\top y \quad \text{s.t. } Wy = h(\xi) - Tx$$
 
-<div class="poster-column">
-
-### Data & Setup
-
-Describe your dataset, experimental setup, or study area. Include key parameters.
+</div>
 
 | Parameter | Value |
 |:----------|------:|
@@ -87,102 +85,55 @@ Describe your dataset, experimental setup, or study area. Include key parameters
 | Time horizon | 8 760 h |
 | Resolution | 1 h |
 
-</div>
+</section>
 
-<div class="poster-column">
+<section>
 
-### Model / Approach
+## Policy Surface
 
-Outline your method or model. Use inline math like $\min_{x} \, c^\top x$ or display equations:
+<div class="poster-figure-box" style="height: 360px;">Main Result Figure</div>
 
-$$\sum_{t=1}^{T} c_t x_t \;\leq\; B, \quad x_t \geq 0$$
+<div class="caption">Fig 2: Optimal policy projection over the cost surface.</div>
 
-</div>
-
-<div class="poster-column">
-
-### Validation
-
-Explain how you validate your results.
-
-- Benchmark or baseline comparison
-- Cross-validation strategy
-- Out-of-sample testing
+</section>
 
 </div>
 
-</div>
+<div class="col">
 
----
+<section>
 
-# Results
+## Results
 
 <div class="poster-kpi-grid">
-  <div class="poster-kpi"><span class="poster-kpi-value">91.7 %</span><span class="poster-kpi-label">Accuracy</span></div>
-  <div class="poster-kpi"><span class="poster-kpi-value">−29 %</span><span class="poster-kpi-label">Error vs. Baseline</span></div>
-  <div class="poster-kpi"><span class="poster-kpi-value">8 760 h</span><span class="poster-kpi-label">Horizon Covered</span></div>
+  <div class="poster-kpi"><span class="poster-kpi-value">91.7%</span><span class="poster-kpi-label">Accuracy</span></div>
+  <div class="poster-kpi"><span class="poster-kpi-value">−29%</span><span class="poster-kpi-label">vs. Baseline</span></div>
+  <div class="poster-kpi"><span class="poster-kpi-value">8 760</span><span class="poster-kpi-label">Hours</span></div>
 </div>
 
-<div class="poster-columns">
+<div class="poster-figure-box" style="height: 200px;">Convergence Graph</div>
 
-<div class="poster-column">
+<div class="caption">Fig 3: Iterative convergence comparison.</div>
 
-### Key Finding
+<div class="poster-figure-box" style="height: 200px;">Dispatch Heatmap</div>
 
-Present your primary quantitative result here.
+<div class="caption">Fig 4: Locational Marginal Pricing (LMP) variance.</div>
 
-| Method | Metric A | Metric B |
-|:-------|:--------:|:--------:|
-| Baseline | 1.52 | 84.3 % |
-| Proposed | **1.08** | **91.7 %** |
+</section>
 
-*Table 1: Comparison with baseline.*
+<section>
 
-</div>
+## Conclusions
 
-<div class="poster-column">
+- **Main result:** One-sentence summary of the key finding
+- **Contribution:** What this adds to the literature
+- **Outlook:** Next steps or open questions
 
-### Visualization
+</section>
 
-![Figure caption describing what is shown and why it matters.](figures/example.png)
+<section>
 
-*Figure 1: Replace with your result figure.*
-
-</div>
-
-<div class="poster-column">
-
-### Discussion
-
-Interpret the findings. Explain what drives the improvement and under which conditions it holds.
-
-- Observation one
-- Observation two
-- Condition or limitation to flag
-
-</div>
-
-</div>
-
----
-
-# Conclusions
-
-<div class="poster-conclusion">
-
-### Takeaways
-
-- **Main result:** one-sentence summary of the key finding
-- **Contribution:** what this adds to the literature
-- **Outlook:** next steps or open questions
-
-**Contact:** firstname.lastname@uclouvain.be &emsp;|&emsp; [github.com/giooms](https://github.com/giooms)
-
-</div>
-
----
-
-# References
+## References
 
 <div class="poster-references">
 
@@ -192,9 +143,13 @@ Interpret the findings. Explain what drives the improvement and under which cond
 
 </div>
 
-<div class="poster-footer">
-  <div>firstname.lastname@uclouvain.be &nbsp;·&nbsp; <a href="https://github.com/giooms">github.com/giooms</a></div>
-  <div class="poster-footer-center">Conference Name &amp; Year &nbsp;·&nbsp; Location, Country &nbsp;·&nbsp; Month 2025</div>
-  <div class="poster-qr">QR<br>code<br>here</div>
+</section>
+
+<div class="engagement-block">
+  <div class="contact-info">
+    <strong>Contact &amp; Paper Access</strong>
+    firstname.lastname@uclouvain.be &nbsp;&middot;&nbsp; <a href="https://github.com/giooms">github.com/giooms</a> &nbsp;&middot;&nbsp; UCLouvain / LIDAM
+  </div>
 </div>
 
+</div>

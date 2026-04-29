@@ -1,286 +1,328 @@
 /* ===================================================================
-   Scientific Poster  —  UCLouvain / LIDAM theme
-   Best-practice modern academic poster  ·  Print-optimised  ·  A0/A1
+   Scientific Poster — Functional Elegance · UCLouvain / LIDAM
+   Exact port of functional-elegance-poster-final.html
+   Print-ready A0 portrait  ·  36in × 48in
    =================================================================== */
 
-/* ── Design tokens ─────────────────────────────────────────────── */
 :root {
-    /* UCLouvain brand */
-    --navy:         #002d62;
-    --navy-dark:    #001d42;
-    --blue:         #1a5fa8;   /* mid blue — links, accents on white */
-    --accent:       #2f84c0;   /* lighter blue — accents on white bg */
+    --bg:          #ffffff;
+    --surface:     #f1f5f9;
+    --fg:          #000000;
+    --brand-blue:  #00204d;
+    --muted:       #475569;
+    --border:      #e2e8f0;
+    --accent:      #00e5ff;
 
-    /* Text */
-    --ink:          #1a202c;
-    --ink-soft:     #5a6a7e;
-    --ink-muted:    #8a9ab0;
+    --font-body:   -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Inter', sans-serif;
+    --font-mono:   'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
 
-    /* Surfaces */
-    --bg-page:      #ffffff;
-    --bg-card:      #f4f7fb;
-    --bg-ice:       #e6f0fa;   /* very light blue tint */
-    --bg-band:      #ebf0f7;
-    --bg-body:      #cdd5e0;
-    --rule:         #cdd8ea;
-
-    /* Elevation — flatter for minimalism */
-    --shadow-card:  0 1px 4px rgba(0,45,98,.09);
-    --shadow-hdr:   0 3px 18px rgba(0,0,0,.16);
+    --grid-gap:    1.25in;
 }
 
-/* ── Print @page (A0 portrait, zero margins) ────────────────────── */
-@page {
-    size: A0 portrait;
-    margin: 0;
-}
+@page { size: A0 portrait; margin: 0; }
 
 @media print {
-    body.poster-mode {
-        padding: 0;
-        background: white;
-    }
-    #poster-content {
-        box-shadow: none;
-        max-width: 100%;
-        min-height: 100vh;
-    }
-    .poster-footer { page-break-inside: avoid; }
+    body.poster-mode { padding: 0; background: white; }
+    #poster-content  { box-shadow: none; }
 }
 
-/* ── Base reset ────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
 body.poster-mode {
     margin: 0;
-    padding: 28px;
-    background: var(--bg-body);
-    font-family: 'Lato', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.70;
-    color: var(--ink);
+    padding: 0;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
 
 #poster-content {
-    max-width: 1360px;
-    margin: 0 auto;
-    background: var(--bg-page);
-    box-shadow: var(--shadow-hdr);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    width: 36in;
+    min-height: 48in;
+    background-color: var(--bg);
+    color: var(--fg);
+    padding: 2in;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: var(--grid-gap);
+    box-shadow: 0 0.5in 2in rgba(0,0,0,0.1);
 }
 
 /* ===================================================================
-   HEADER
-   Two zones: navy left (title + authors)  |  white right (logos)
+   HEADER  —  white bg, full-width title, meta row below
    =================================================================== */
 
 .poster-header {
-    display: grid;
-    grid-template-columns: 1fr 230px;
-    background: var(--navy);
-    color: #fff;
-    flex-shrink: 0;
-    border-top: 4px solid var(--accent);
-    box-shadow: var(--shadow-hdr);
-}
-
-/* ─── Left zone: title + meta ─── */
-.poster-header-left {
-    padding: 36px 42px 32px 52px;
+    grid-column: 1 / -1;
+    border-bottom: 0.08in solid var(--accent);
+    padding-bottom: 0.75in;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 22px;
-    border-right: 1px solid rgba(255,255,255,.12);
 }
 
-/* High-specificity override — prevents section-heading h1 rule from
-   applying to the poster title (specificity 121 > 101). */
+.poster-header-left { display: contents; }
+
 #poster-content .poster-header .poster-title-block h1 {
+    font-family: var(--font-body);
+    font-size: 2in;
+    margin: 0 0 0.25in;
+    line-height: 0.95;
+    letter-spacing: -0.04in;
+    font-weight: 700;
+    color: var(--brand-blue);
     background: none;
-    margin: 0 0 10px;
     padding: 0;
-    font-size: 46px;
-    font-weight: 900;
-    line-height: 1.06;
-    letter-spacing: -.5px;
-    color: #fff;
     text-transform: none;
     border-bottom: none;
 }
 
 .poster-subtitle {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 300;
+    margin: 0 0 0.25in;
+    font-size: 0.5in;
+    font-weight: 400;
     font-style: italic;
-    color: rgba(255,255,255,.88);
+    color: var(--muted);
     line-height: 1.4;
 }
 
-.poster-meta-block .poster-authors {
-    font-size: 15.5px;
+/* meta row: [profile + authors]  ···  [logos + QR] */
+.poster-meta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5in;
+}
+
+.poster-authors-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5in;
+}
+
+.poster-profile-pic {
+    width: 1.5in;
+    height: 1.5in;
+    background-color: var(--surface);
+    border: 0.02in solid var(--border);
+    border-radius: 0.1in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.poster-profile-pic::after {
+    content: "PIC";
+    font-size: 0.3in;
+    color: var(--muted);
+    font-family: var(--font-mono);
+}
+
+.poster-authors-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1in;
+}
+
+.poster-authors {
+    font-size: 0.55in;
+    color: var(--brand-blue);
     font-weight: 600;
-    color: #ffffff;
-    margin: 0 0 8px;
 }
 
-.poster-meta-block .poster-affiliations {
-    font-size: 12.5px;
-    line-height: 1.85;
-    color: rgba(255,255,255,.78);
+.poster-affiliations {
+    font-size: 0.4in;
+    line-height: 1.75;
+    color: var(--muted);
 }
 
-.poster-meta-block sup,
-.poster-authors sup {
-    font-size: 10px;
+.poster-authors sup,
+.poster-affiliations sup {
+    font-size: 0.3in;
     vertical-align: super;
 }
 
-/* ─── Right zone: institution logos on white panel ─── */
-.poster-logos-block {
-    background: #fff;
+.poster-logos-container {
     display: flex;
-    flex-direction: column;
+    gap: 0.4in;
     align-items: center;
-    justify-content: center;
-    gap: 26px;
-    padding: 30px 22px;
-    border-left: 1px solid rgba(0,0,0,.1);
+    flex-shrink: 0;
 }
 
 .poster-logo {
-    max-height: 72px;
-    max-width: 170px;
+    max-height: 1.6in;
+    max-width: 4in;
     width: auto;
     height: auto;
     display: block;
 }
 
+/* QR code in the header (decorative placeholder) */
+.poster-qr-header {
+    width: 1.5in;
+    height: 1.5in;
+    border: 0.03in solid var(--brand-blue);
+    background: repeating-conic-gradient(from 0deg, #000 0deg 90deg, #fff 90deg 180deg) 0 0/0.2in 0.2in;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.poster-qr-header::after {
+    content: "QR";
+    background: var(--bg);
+    padding: 0.05in 0.1in;
+    font-family: var(--font-mono);
+    font-size: 0.25in;
+    font-weight: bold;
+    color: var(--brand-blue);
+}
+
 /* ===================================================================
-   KEY MESSAGE BANNER
-   The single most important finding — prominent so visitors grasp
-   the contribution at a glance (Morrison "better poster" principle).
+   KEY MESSAGE BANNER  (optional — add class="full-width" to span all cols)
    =================================================================== */
 
 .poster-key-message {
-    background: var(--bg-ice);
-    border-left: 6px solid var(--navy);
-    border-bottom: 1px solid var(--rule);
-    padding: 20px 52px 20px 20px;
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border-left: 0.08in solid var(--accent);
+    border-bottom: 0.02in solid var(--border);
+    padding: 0.4in 1in 0.4in 0.4in;
     display: flex;
     align-items: flex-start;
-    gap: 18px;
+    gap: 0.3in;
 }
 
 .poster-key-message-icon {
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    background: var(--navy);
+    width: 0.7in;
+    height: 0.7in;
+    background: var(--brand-blue);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 0.35in;
     color: #fff;
-    margin-top: 2px;
 }
 
 .poster-key-message-text { flex: 1; }
 
 .poster-key-message-label {
     display: block;
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--accent);
+    font-size: 0.28in;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 1.6px;
-    margin-bottom: 5px;
+    letter-spacing: 0.06in;
+    margin-bottom: 0.1in;
 }
 
 .poster-key-message-text p {
     margin: 0 !important;
-    font-size: 19px !important;
-    font-weight: 700 !important;
-    color: var(--navy) !important;
+    font-size: 0.55in !important;
+    font-weight: 600 !important;
+    color: var(--brand-blue) !important;
     line-height: 1.42 !important;
     text-align: left !important;
     hyphens: none !important;
 }
+
 /* ===================================================================
-   SECTION HEADINGS  —  full-width navy band
+   THREE-COLUMN BODY LAYOUT
    =================================================================== */
 
-#poster-content h1 {
-    background: var(--navy);
-    color: #fff;
-    margin: 22px 0 0;
-    padding: 10px 52px;
-    font-size: 13.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
-    border-bottom: none;
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5in;
 }
 
-/* No extra top gap before the very first section */
-#poster-content > h1:first-of-type,
-.poster-key-message + h1 {
-    margin-top: 0;
+#poster-content section {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width { grid-column: 1 / -1; }
+
+.engagement-block {
+    margin-top: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 0.5in;
+    border-top: 0.04in solid var(--border);
+}
+
+.contact-info {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.35in;
+    color: var(--muted);
+    width: 100%;
+    line-height: 1.6;
+}
+
+.contact-info strong {
+    color: var(--brand-blue);
+    display: block;
+    font-size: 0.45in;
+    font-family: var(--font-body);
+    margin-bottom: 0.1in;
 }
 
 /* ===================================================================
-   HR  (--- in Markdown) — invisible; spacing provided by h1 margins
-   =================================================================== */
-
-#poster-content > hr {
-    display: none;
-}
-
-/* ===================================================================
-   SUB-HEADINGS inside body sections
+   SECTION HEADINGS  (h2 inside .col > section)
    =================================================================== */
 
 #poster-content h2 {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--navy);
-    margin: 14px 0 5px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--rule);
+    font-size: 0.75in;
+    font-weight: 600;
+    color: var(--brand-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.05in;
+    margin: 0 0 0.4in;
+    padding-bottom: 0.15in;
+    border-bottom: 0.04in solid var(--border);
 }
 
 #poster-content h3 {
-    font-size: 13px;
+    font-size: 0.55in;
     font-weight: 700;
-    color: var(--navy);
-    margin: 11px 0 4px;
+    color: var(--brand-blue);
+    margin: 0.3in 0 0.2in;
 }
 
 #poster-content h4 {
-    font-size: 12.5px;
+    font-size: 0.5in;
     font-weight: 700;
-    color: var(--ink);
-    margin: 8px 0 3px;
+    color: var(--brand-blue);
+    margin: 0.25in 0 0.15in;
 }
 
 /* ===================================================================
    MULTI-COLUMN GRID
-   .poster-columns           → 3 columns (default)
-   .poster-columns-2         → 2 columns
-   .poster-columns-4         → 4 columns
+   .poster-columns        → 3 columns (default)
+   .poster-columns-2      → 2 columns
+   .poster-columns-4      → 4 columns
    =================================================================== */
 
 .poster-columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    padding: 16px 42px 20px;
+    gap: 20px;
+    padding: 18px 52px 22px;
 }
 
 .poster-columns.poster-columns-2 { grid-template-columns: repeat(2, 1fr); }
@@ -293,19 +335,18 @@ body.poster-mode {
 
 /* ── Column card ── */
 .poster-column {
-    background: var(--bg-page);
-    border-radius: 6px;
-    border-top: 4px solid var(--navy);
-    box-shadow: var(--shadow-card);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: none;
     padding: 18px 20px 20px;
     display: flex;
     flex-direction: column;
 }
 
 /* Variants */
-.poster-column.accent  { border-top-color: var(--accent); }
-.poster-column.tinted  { background: var(--bg-card); box-shadow: none;
-                          border: 1px solid var(--rule); border-top: 4px solid var(--navy); }
+.poster-column.accent { border-left: 3px solid var(--accent); border-top: none; }
+.poster-column.tinted { background: var(--surface); }
 
 .poster-column h2, .poster-column h3 { margin-top: 0; }
 .poster-column p  { margin: 6px 0; }
@@ -314,55 +355,83 @@ body.poster-mode {
 .poster-column li { margin: 3px 0; }
 
 /* ===================================================================
+   MATH BLOCKS  — surface bg + cyan left border
+   Wrap display equations: <div class="math-block">$$...$$</div>
+   =================================================================== */
+
+.math-block {
+    background-color: var(--surface);
+    padding: 0.4in;
+    border-left: 0.08in solid var(--accent);
+    margin-bottom: 0.5in;
+    color: var(--brand-blue);
+    overflow-x: auto;
+}
+
+/* ===================================================================
+   WIREFRAME FIGURE BOX
+   =================================================================== */
+
+.poster-figure-box,
+.wireframe-box {
+    border: 0.04in solid var(--border);
+    background-color: var(--surface);
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 32, 77, 0.03),
+        rgba(0, 32, 77, 0.03) 0.1in,
+        transparent 0.1in,
+        transparent 0.2in
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.45in;
+    text-transform: uppercase;
+    letter-spacing: 0.05in;
+    font-family: var(--font-mono);
+    margin-bottom: 0.4in;
+    padding: 0.3in;
+    text-align: center;
+}
+
+/* ===================================================================
    KPI BLOCKS  — for key numbers / metrics
-   Usage:
-   <div class="poster-kpi-grid">
-     <div class="poster-kpi">
-       <span class="poster-kpi-value">91 %</span>
-       <span class="poster-kpi-label">Accuracy</span>
-     </div>
-   </div>
    =================================================================== */
 
 .poster-kpi {
-    background: var(--navy);
-    border-radius: 6px;
-    padding: 16px 10px;
+    background: var(--brand-blue);
+    padding: 0.3in 0.2in;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 88px;
 }
 
 .poster-kpi-value {
-    font-size: 34px;
-    font-weight: 900;
+    font-size: 0.9in;
+    font-weight: 700;
     line-height: 1;
-    color: #ffffff;
+    color: var(--accent);
 }
 
 .poster-kpi-label {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: rgba(255,255,255,.78);
-    margin-top: 6px;
+    font-size: 0.28in;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: rgba(255,255,255,.75);
+    margin-top: 0.1in;
     text-transform: uppercase;
-    letter-spacing: .8px;
+    letter-spacing: 0.03in;
 }
 
 .poster-kpi-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 10px 0;
-}
-
-/* When the kpi-grid sits directly inside #poster-content (not inside a card) */
-#poster-content > .poster-kpi-grid {
-    padding: 16px 42px 6px;
-    margin: 0;
+    gap: 0.15in;
+    margin: 0 0 0.5in;
 }
 
 /* ===================================================================
@@ -370,12 +439,9 @@ body.poster-mode {
    =================================================================== */
 
 .poster-conclusion {
-    margin: 0 42px 20px;
-    padding: 20px 26px;
-    background: var(--bg-band);
-    border-left: 6px solid var(--navy);
-    border-radius: 0 6px 6px 0;
-    box-shadow: var(--shadow-card);
+    padding: 0.4in;
+    background: var(--surface);
+    border-left: 0.08in solid var(--accent);
 }
 
 .poster-conclusion h2 {
@@ -388,85 +454,82 @@ body.poster-mode {
    =================================================================== */
 
 .poster-references {
-    padding: 14px 52px 0;
-    font-size: 11.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
+    padding: 0;
+    font-size: 0.35in;
+    line-height: 1.3;
+    font-family: var(--font-mono);
+    color: var(--muted);
 }
 
 .poster-references h2 {
-    font-size: 12.5px;
-    font-weight: 800;
-    color: var(--navy);
+    font-size: 0.75in;
+    font-weight: 600;
+    font-family: var(--font-body);
+    color: var(--brand-blue);
     text-transform: uppercase;
-    letter-spacing: .8px;
-    margin: 0 0 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--rule);
+    letter-spacing: 0.05in;
+    margin: 0 0 0.4in;
+    padding-bottom: 0.15in;
+    border-bottom: 0.04in solid var(--border);
 }
 
 .poster-references ol,
 .poster-references ul {
     margin: 0;
-    padding-left: 16px;
-    columns: 2;
-    column-gap: 36px;
+    padding-left: 0.4in;
 }
 
 .poster-references li {
-    margin: 3px 0;
-    break-inside: avoid;
+    margin-bottom: 0.2in;
 }
 
 /* ===================================================================
-   FOOTER  — navy strip mirroring the header
+   FOOTER  — deep navy strip, monospace
    =================================================================== */
 
 .poster-footer {
-    background: var(--navy-dark);
-    color: rgba(255,255,255,.72);
+    grid-column: 1 / -1;
+    background: var(--brand-blue);
+    color: rgba(255,255,255,.70);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 11px 52px;
-    margin-top: 24px;
-    font-size: 12px;
-    border-top: 1px solid rgba(255,255,255,.15);
-    flex-shrink: 0;
+    gap: 0.4in;
+    padding: 0.25in 0;
+    font-size: 0.35in;
+    font-family: var(--font-mono);
 }
 
 .poster-footer a {
     color: rgba(255,255,255,.88);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,.3);
+    border-bottom: 0.02in solid rgba(255,255,255,.25);
 }
 
-.poster-footer a:hover { color: #ffffff; }
+.poster-footer a:hover { color: var(--accent); }
 
 .poster-footer-center {
     text-align: center;
     flex: 1;
     font-style: italic;
-    font-size: 11.5px;
-    line-height: 1.55;
+    font-size: 0.3in;
+    line-height: 1.5;
 }
 
-/* Placeholder QR code box */
 .poster-qr {
     flex-shrink: 0;
-    width: 58px;
-    height: 58px;
-    border: 2px solid rgba(255,255,255,.25);
-    border-radius: 4px;
+    width: 1.2in;
+    height: 1.2in;
+    border: 0.04in solid rgba(0,229,255,.4);
     background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 8.5px;
-    color: var(--ink-soft);
+    font-size: 0.2in;
+    font-family: var(--font-mono);
+    color: var(--muted);
     text-align: center;
-    padding: 3px;
+    padding: 0.05in;
     line-height: 1.3;
 }
 
@@ -475,22 +538,24 @@ body.poster-mode {
    =================================================================== */
 
 #poster-content p {
-    margin: 7px 0;
-    color: var(--ink);
-    text-align: justify;
-    hyphens: auto;
+    font-size: 0.45in;
+    line-height: 1.45;
+    margin: 0 0 0.5in;
+    color: var(--fg);
 }
 
 #poster-content ul,
 #poster-content ol {
-    margin: 7px 0;
-    padding-left: 20px;
-    color: var(--ink);
+    margin: 0 0 0.5in;
+    padding-left: 0.5in;
+    color: var(--fg);
+    font-size: 0.45in;
+    line-height: 1.45;
 }
 
-#poster-content li { margin: 3px 0; }
+#poster-content li { margin-bottom: 0.2in; }
 
-strong { font-weight: 700; color: var(--ink); }
+strong { font-weight: 700; }
 em     { font-style: italic; }
 
 /* ===================================================================
@@ -500,55 +565,71 @@ em     { font-style: italic; }
 #poster-content table {
     border-collapse: collapse;
     width: 100%;
-    margin: 10px 0;
-    font-size: 12.5px;
+    margin: 0 0 0.5in;
+    font-size: 0.4in;
 }
 
 #poster-content table thead {
-    background-color: var(--navy);
+    background-color: var(--brand-blue);
     color: white;
 }
 
 #poster-content table th {
-    padding: 7px 10px;
+    padding: 0.15in 0.2in;
     font-weight: 700;
     text-align: left;
 }
 
 #poster-content table td {
-    padding: 5px 10px;
-    border-bottom: 1px solid var(--rule);
-    color: var(--ink);
+    padding: 0.1in 0.2in;
+    border-bottom: 0.01in solid var(--border);
+    color: var(--fg);
 }
 
 #poster-content table tbody tr:nth-child(even) {
-    background-color: var(--bg-card);
+    background-color: var(--surface);
 }
 
 /* ===================================================================
    FIGURES & IMAGES
    =================================================================== */
 
-#poster-content figure        { margin: 12px 0; text-align: center; }
+#poster-content figure { margin: 0.2in 0; text-align: center; }
 
 #poster-content figcaption,
+.caption {
+    font-size: 0.35in;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-style: normal;
+    display: block;
+    margin-top: -0.2in;
+    margin-bottom: 0.5in;
+    border-left: 0.04in solid var(--accent);
+    padding-left: 0.2in;
+    line-height: 1.4;
+}
+
+/* italic-only paragraph used as caption in Markdown */
 #poster-content p > em:only-child {
     display: block;
-    font-size: 11.5px;
-    color: var(--ink-soft);
-    font-style: italic;
-    text-align: center;
-    margin-top: 5px;
-    line-height: 1.45;
+    font-size: 0.35in;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-style: normal;
+    margin-top: -0.3in;
+    margin-bottom: 0.5in;
+    border-left: 0.04in solid var(--accent);
+    padding-left: 0.2in;
+    line-height: 1.4;
 }
 
 #poster-content img:not(.poster-logo) {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 10px auto;
-    border-radius: 4px;
-    border: 1px solid var(--rule);
+    margin: 0.2in auto;
+    border: 0.02in solid var(--border);
 }
 
 /* ===================================================================
@@ -556,23 +637,22 @@ em     { font-style: italic; }
    =================================================================== */
 
 #poster-content code {
-    font-family: 'Courier New', 'Menlo', monospace;
-    font-size: 11.5px;
-    background: #edf1f7;
-    padding: 2px 5px;
-    border-radius: 3px;
-    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.38in;
+    background: var(--surface);
+    padding: 0.03in 0.08in;
+    color: var(--fg);
 }
 
 #poster-content pre {
     background: #1e2533;
     color: #cdd3de;
-    padding: 14px 18px;
-    border-radius: 5px;
+    padding: 0.3in 0.4in;
     overflow-x: auto;
-    font-size: 11px;
+    font-size: 0.35in;
     line-height: 1.5;
-    margin: 10px 0;
+    margin: 0 0 0.5in;
+    font-family: var(--font-mono);
 }
 
 #poster-content pre code {
@@ -586,44 +666,39 @@ em     { font-style: italic; }
    =================================================================== */
 
 #poster-content a {
-    color: var(--blue);
+    color: var(--brand-blue);
     text-decoration: none;
-    border-bottom: 1px solid #a0badc;
+    border-bottom: 0.02in solid rgba(0,229,255,.5);
 }
 
 #poster-content a:hover {
-    color: var(--navy);
-    border-bottom-color: var(--navy);
+    border-bottom-color: var(--accent);
 }
 
-/* ===================================================================
-   MATH  (KaTeX)
-   =================================================================== */
-
-.katex-display { margin: 12px 0; overflow-x: auto; }
-.katex         { font-size: .96em; }
+.katex-display { margin: 0.2in 0; overflow-x: auto; }
+.katex         { font-size: 1em; }
 
 /* ===================================================================
    CALLOUTS  (optional)
    =================================================================== */
 
 .callout {
-    border-left: 4px solid var(--rule);
-    padding: 12px 16px;
-    margin: 10px 0;
-    border-radius: 4px;
-    background: var(--bg-card);
+    border-left: 0.06in solid var(--border);
+    padding: 0.3in 0.4in;
+    margin: 0 0 0.5in;
+    background: var(--surface);
 }
 
-.callout-note    { border-left-color: var(--blue);  background: #eff5ff; }
-.callout-tip     { border-left-color: #16a34a;      background: #f0fdf4; }
-.callout-warning { border-left-color: #d97706;      background: #fffaeb; }
+.callout-note    { border-left-color: #0ea5e9; background: #f0f9ff; }
+.callout-tip     { border-left-color: #16a34a; background: #f0fdf4; }
+.callout-warning { border-left-color: #d97706; background: #fffaeb; }
 
 .callout-title {
     font-weight: 800;
-    font-size: 12.5px;
-    margin-bottom: 5px;
-    color: var(--ink);
+    font-size: 0.38in;
+    font-family: var(--font-mono);
+    margin-bottom: 0.15in;
+    color: var(--fg);
 }
 
 /* ===================================================================
@@ -636,5 +711,5 @@ em     { font-style: italic; }
 .large       { font-size: 17px   !important; }
 .bold        { font-weight: 700  !important; }
 .italic      { font-style: italic !important; }
-.muted       { color: var(--ink-soft) !important; }
+.muted       { color: var(--muted) !important; }
 
